@@ -1,49 +1,24 @@
-SEIQV Epidemic Model and Numerical Methods
+# SEIQV Dynamics and Numerical Methods
 
-Project Overview
+A MATLAB computational mathematics project studying computer-worm propagation with susceptible, exposed, infected, quarantined and vaccinated compartments. It implements numerical routines for nonlinear equilibrium equations and ordinary differential equations.
 
-This project is part of the Licenciatura in Engenharia e Gestão Industrial at Instituto Superior Técnico, and it implements mathematical algorithms for solving non-linear systems and differential equations. The key focus of the project is on the SEIQV Epidemic Model to simulate the spread of computer worms with quarantine and vaccination strategies.
+## Methods
 
-The project utilizes:
+- `NewtonMatriz.m`: Newton iteration for a nonlinear system, using a supplied Jacobian and a tolerance on the step norm.
+- `Heun.m`: explicit second-order Runge-Kutta integration (Euler predictor and trapezoidal correction).
+- `Fx*.m` / `JF*.m`: model equations and Jacobians for the project variants.
+- `LiveScriptProjeto2.mlx`: the original computational study and analysis.
 
-	•	Newton’s method for approximating solutions to non-linear systems.
-	•	Heun’s method (an improved version of the Euler method) for solving ordinary differential equations (ODEs).
-	•	SEIQV model for simulating the epidemic spread of computer worms.
+## Run
 
-Key Features
+Open the repository folder in MATLAB, add it to the MATLAB path, and open `LiveScriptProjeto2.mlx`. Run the live script sections in order to reproduce the original analysis. The `.m` helpers can also be called from MATLAB with compatible function handles and initial conditions; parameter choices are in the source functions/live script.
 
-	1.	Newton’s Method for Non-linear Systems:
-	•	This part of the project involves using Newton’s iterative method to approximate solutions to non-linear systems of equations. It includes checking for convergence and error tolerance.
-Key Parameters:
-	•	f: The function representing the system of equations.
-	•	Jf: The Jacobian matrix of f.
-	•	eps: Tolerance for stopping criteria.
-	•	max: Maximum number of iterations.
-	•	y0: Initial guess for the solution vector.
-	2.	Heun’s Method for Ordinary Differential Equations (ODEs):
-	•	Heun’s method is a second-order Runge-Kutta method that improves on the Euler method by averaging the slopes to predict better solutions for ODEs. This method is used to approximate the solution for epidemic models.
-Key Parameters:
-	•	f: Function that defines the ODE system.
-	•	ya: Initial conditions for the variables.
-	•	a: Initial point of integration.
-	•	b: End point of integration.
-	•	n: Number of integration steps.
-	•	k: Number of equations in the system.
-	3.	SEIQV Epidemic Model for Computer Worms:
-	•	This model simulates the spread of computer worms across vulnerable hosts with states: Susceptible (S), Exposed (E), Infected (I), Quarantine (Q), and Vaccinated (V). The model considers infection rates, quarantine measures, and vaccination strategies to control the epidemic.
-	•	The project calculates equilibrium points and uses Newton’s method to determine stability. It simulates the dynamics of infected and quarantined hosts over time and compares various quarantine rates.# Numerical_Methods_Epidemic
+No additional MATLAB toolbox dependency is declared in the supplied helper files. A compatible MATLAB installation is required for the live script; MATLAB execution was not available during this portfolio update.
 
+## Limitations
 
-Key Simulations
+Heun's method has second-order global accuracy for sufficiently smooth problems; this is distinct from quadratic convergence of Newton iteration, which requires additional local conditions. Computing an equilibrium with Newton's method alone does not prove its stability.
 
-	1.	Equilibrium Points Calculation:
-	•	Using Newton’s method, the project calculates equilibrium points for different parameter values to determine the stability of the infection-free and endemic states.
-	2.	Impact of Quarantine on Infections:
-	•	The simulation compares the effect of varying quarantine rates (α2) on the peak number of infected hosts (I-Max). As quarantine rates increase, the maximum number of infected individuals decreases, showing the effectiveness of quarantine strategies.
+`NewtonMatriz` does not explicitly return a completed iteration count if the maximum is reached without convergence. `Heun` initializes the recorded maxima to one, so the reported maxima need review when state magnitudes are below one. These are preserved limitations of the original academic implementation.
 
-Conclusion
-
-This project successfully implements numerical methods (Newton’s method and Heun’s method) to solve non-linear systems and ODEs, respectively. It also provides a thorough analysis of the SEIQV epidemic model, highlighting the importance of quarantine and vaccination in controlling the spread of computer worms.
-
-The quadratic convergence of Heun’s method and the stability analysis using Newton’s method ensure accurate and reliable approximations of complex systems.
-
+This is a numerical modelling study of computer worms, not a medical forecasting system. Current verification covers source inspection rather than a fresh MATLAB experiment.
